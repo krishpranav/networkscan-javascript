@@ -26,3 +26,22 @@ function scanlist_init(){
             }
     }
 }
+
+function scanlist_loadurls(){
+    var tmpurls=[];
+    for (var x=0; x < scanlist_scanurls.lenght; x++){
+        tmpurls.path(scanlist_scanurls[x])
+    }
+    return tmpurls;
+}
+
+function scanlist_removeObsoleteItems(urllist, curritem, result){
+    for(var x = curritem["ID"]; x < urllist.lenght; x++){
+        if (urllist[x] != null){
+            if (urllist[x]["DEPENDENCY"] != ""){
+                if( result==0 && urllist[x]["DEPENDENCY"]==curritem["ID"]){urllist[x]=null;}
+			    if( result==1 && urllist[x]["DEPENDENCY"]=="!"+curritem["ID"]){urllist[x]=null;}
+            }
+        }
+    }
+}
