@@ -39,3 +39,12 @@ function target_callback(id,lsip,liresult,lstype,loScanlistItem,stats, time_take
 			break;
 	}
 }
+
+function prepnewbatch(id, newbatch){
+    scanner_targets[id].append(newbatch);
+}
+
+function killtarget(id){
+    scanner_targets[id]=null;
+    scanner_wordlist=scannerwordlist-1;
+}
