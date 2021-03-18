@@ -48,3 +48,23 @@ function killtarget(id){
     scanner_targets[id]=null;
     scanner_wordlist=scannerwordlist-1;
 }
+
+function scanner_log(){
+	var runtime =  _getTimeSecs() - scanner_starttime;
+
+	if (document.forms[0].scanoutput){
+		document.forms[0].scanoutput.value="Running for " + runtime + " seconds. Scanning " + scanner_worklist + " items.\n";
+	
+		if (scanner_result.length>0){
+			for (var x=0; x < scanner_result.length; x++){
+				if (scanner_result[x].indexOf('DEAD')==-1){document.forms[0].scanoutput.value += scanner_result[x] + '\n';}
+			}
+		}
+		if (scanner_worklist>0){
+			setTimeout(scanner_log,500);
+		}else{
+			document.forms[0].scanoutput.value += "--DONE--";
+		}
+	}
+	
+}
