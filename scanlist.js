@@ -45,3 +45,20 @@ function scanlist_removeObsoleteItems(urllist, curritem, result){
         }
     }
 }
+
+function scanlist_loaddependencies(lsID, licontains, lilvel){
+
+    var tmpurls[];
+    for (var x=0; x < scanlist_scanurls.length; x++){
+        if (scanlist_scanurls[x]["LEVEL"]==lilevel + 1 && scanlist_scanurls[x]["DEPENDENCY"]=="" ){
+            tmpurls.push(scanlist_scanurls[x])
+        }else if(scanlist_scanurls[x]["DEPENDENCY"] == lsID && licontains==1 && scanlist_scanurls[x]["LEVEL"]==lilevel + 1){
+            tmpurls.push(scanlist_scanurls[x])
+        }else if(scanlist_scanurls[x]["DEPENDENCY"] == "!"+lsID && licontains==0 && scanlist_scanurls[x]["LEVEL"]==lilevel + 1){
+            tmpurls.push(scanlist_scanurls[x])
+        }
+    }
+    return tmpurls;
+}
+
+main_filesloaded=main_filesloaded+1;
