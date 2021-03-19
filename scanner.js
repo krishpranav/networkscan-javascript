@@ -82,3 +82,12 @@ function overwriteresult(newresult){
 
 	if (exists==false){scanner_result.push(newresult);}
 }
+
+function _getTimeSecs(){
+	var d = new Date();
+	var t_hour = d.getHours(); //returns hours
+	var t_min = d.getMinutes(); //returns minutes
+	var t_sec = d.getSeconds(); //return seconds
+	var result = ((t_hour*60)+t_min)*60 + t_sec;
+	return result;
+}
