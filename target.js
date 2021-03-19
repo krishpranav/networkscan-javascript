@@ -33,4 +33,33 @@ function target(id,ip, scanlist, report_callback, recon_moed){
 		}
 		
 	}
+    function handle_result(result,img,time_taken){
+
+		var stopscanning=0;
+		
+		response_times.push(time_taken); //keep statistics to trap dead ips
+
+		stat_urltrycount=stat_urltrycount+1;
+
+		if (result ==1){
+		//image retrieval was a succes.
+			if (scanlist[current_scanlistItem]["DEPTRIGGER"]==0){stopscanning=1;}
+			report_callback(id,ip,1,"HIT",scanlist[current_scanlistItem],stat_urltrycount + "/" + stat_urlomitcount,time_taken);
+		}else{
+		//failure also yields viable info
+		//e.g.: arp takes 3 seconds, if it fails before that we know that the ip is in use
+			if (isDeadHost(response_times,death_timeout, stat_urltrycount)==true){
+				stopscanning==1 //dead, don't scan further
+				report_callback(id,ip,0,'DEAD',scanlist[current_scanlistItem],stat_urltrycount + "/" + stat_urlomitcount, time_taken);				
+			}else{;
+				report_callback(id,ip,0,'UNKNOWN', scanlist[current_scanlistItem],stat_urltrycount + "/" + stat_urlomitcount,time_taken);
+			}
+		}
+		
+		if (stopscanning==0){
+			scanlist_removeObsoleteItems(scanlist,scanlist[current_scanlistItem],result);
+			current_scanlistItem = current_scanlistItem+1;
+			target_scan() //scan next image
+		}
+	}
 }
