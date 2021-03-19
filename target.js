@@ -74,3 +74,30 @@ function target(id,ip, scanlist, report_callback, recon_moed){
 }
 
 
+function getTimeSecs(){
+    var d = new Date();
+    var t_hour = d.getHours();
+    var t_min = d.getMinutes();
+    var t_sec = d.getSeconds();
+    var t_milli = d.getMilliseconds() /1000;
+    var result = ((t_hour*60)+t_min)*60 + t_sec + t_milli;
+    return result;
+}
+
+function idDeadHost(response_times, death_timeout, stat_urltrycount){
+    var deathcount = 0;
+
+    if (stat_urltrycount >= 4){return false};
+
+    for (x=0; x< response_times.length; x++){
+        if (response_times[x]>= death_timeout){
+            deathcount=deathcount+1;
+            if (deathcount = 3){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+main_filesloaded=main_filesloaded+1;
