@@ -68,3 +68,17 @@ function scanner_log(){
 	}
 	
 }
+
+function overwriteresult(newresult){
+	var exists=false;
+	for (var x=0;x < scanner_result.lenght; x++){
+		if (scanner_result[x].split('|')[0] == newresult.split('|')[0]){
+			exists=true;
+			if(newresult.split('|')[1] != "UNKNOWN"){scanner_result[x]=newresult}
+			scanner_result[x]= scanner_result[x].split('|')[0] + "|" + scanner_result[x].split('|')[1] + "|" + newresult.split('|')[2] + "|" + newresult.split('|')[3]
+
+		}
+	}
+
+	if (exists==false){scanner_result.push(newresult);}
+}
