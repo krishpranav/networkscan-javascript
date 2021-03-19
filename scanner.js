@@ -91,3 +91,5 @@ function _getTimeSecs(){
 	var result = ((t_hour*60)+t_min)*60 + t_sec;
 	return result;
 }
+
+main_filesloaded=main_filesloaded+1;
