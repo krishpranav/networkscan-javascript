@@ -20,5 +20,17 @@ function target(id,ip, scanlist, report_callback, recon_moed){
         handle_result(0,img, end_time);
     }
 
-    
+    function target_scan(){
+		if(scanlist[current_scanlistItem]==null && current_scanlistItem < scanlist.length){
+			current_scanlistItem=current_scanlistItem+1;
+			stat_urlomitcount = stat_urlomitcount+1;
+			target_scan();
+		}else if (scanlist[current_scanlistItem]!=null && current_scanlistItem < scanlist.length){
+			var lsurl = scanlist[current_scanlistItem]["PROTO"]+"://" + ip + ":" + scanlist[current_scanlistItem]["PORT"] + "/" + scanlist[current_scanlistItem]["IMAGE"];
+			RetrImg(lsurl);
+		}else{
+			report_callback(id,ip,0,'DONE', scanlist[current_scanlistItem], stat_urltrycount + "/" + stat_urlomitcount,0);
+		}
+		
+	}
 }
