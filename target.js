@@ -62,4 +62,15 @@ function target(id,ip, scanlist, report_callback, recon_moed){
 			target_scan() //scan next image
 		}
 	}
+
+    function RetrImg(lsURL,_id){
+        objImage = new Image();
+
+        var start_time= getTimeSecs();
+        objImage.onload= function(){img_onload(this,_id,start_time)}
+        objImage.onerror= function(){img_onerror(this,_id, start_time)}
+        objImage.src=lsURL;
+    }
 }
+
+
